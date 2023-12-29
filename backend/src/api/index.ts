@@ -1,12 +1,8 @@
 import express from "express";
-import MessageResponse from "../interfaces/MessageResponse";
+import dockerApi from "./dockerApi";
 
 const router = express.Router();
 
-router.get<{}, MessageResponse>("/", (req, res) => {
-  res.json({
-    message: "API - 👋🌎🌍🌏",
-  });
-});
+router.use("/containers", dockerApi);
 
 export default router;
