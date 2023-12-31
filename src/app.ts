@@ -5,6 +5,7 @@ import ErrorHandler from "./middlewares/ErrorHandler";
 import NotFound from "./middlewares/NotFound";
 import docker from "./utils/docker";
 import Handlebars from "hbs";
+import path from "path";
 
 require("dotenv").config();
 
@@ -15,8 +16,17 @@ app.set("view engine", "hbs");
 app.set("view options", { layout: "index" });
 
 app.use(helmet());
+app.use(helmet.noSniff());
 app.use(cors());
 app.use(express.json());
+
+app.use(
+  express.static(path.join(__dirname, "public"), {
+    setHeaders: function (res, path, stat) {
+      res.set("Cache-Control", "public, max-age=31557600"); // 1 year
+    },
+  })
+);
 
 Handlebars.registerHelper("statusClass", function (status) {
   if (status === "healthy") {
@@ -42,7 +52,11 @@ Handlebars.registerHelper("statusTxtClass", function (status) {
   }
 });
 
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+app.get("/containers", async (req, res) => {
   const resContainers = await docker.listContainers();
 
   const result = resContainers.reduce((acc: Map<string, any>, container) => {
@@ -85,10 +99,10 @@ app.get("/", async (req, res) => {
   });
 
   res.render("partials/containers", {
-    layout: "index",
     containers: finalResult,
     totalContainers: finalResult.length,
     updatedOn: new Date().toLocaleString(),
+    layout: false,
   });
 });
 

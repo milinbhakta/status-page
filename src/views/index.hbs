@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Status Page</title>
+  <script src="/js/htmx.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
-  {{!
-  <meta http-equiv="refresh" content="10" /> }}
   <style>
     .healthy {
       background-color: green;
@@ -44,6 +43,7 @@
       color: blue;
     }
   </style>
+
 </head>
 
 <body class="container">
@@ -56,15 +56,8 @@
       </li>
     </ul>
   </nav>
-  <main id="app">
-    {{{body}}}
+  <main id="app" hx-get="/containers" hx-trigger="load, every 5s" hx-indicator="#loading">
   </main>
-  <footer>
-    <em>Total Containers: {{{totalContainers}}}</em>
-    <p>
-      <em>UpdatedOn: {{{updatedOn}}}</em>
-    </p>
-  </footer>
 </body>
 
 </html>
