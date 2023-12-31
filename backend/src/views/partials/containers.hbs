@@ -1,0 +1,11 @@
+{{#each containers}}
+  <article>
+    <div class="container">
+      <h5 class="title">ID: {{this.Id}}</h5>
+      <h6 class="subtitle">Name: {{this.Names}}</h6>
+      <span class="badge badge-success">Status: {{this.Status}}</span>
+      <span class="badge badge-success">State: {{this.State}}</span>
+      <span class="badge badge-success">Created: {{this.Created}}</span>
+    </div>
+  </article>
+{{/each}}
