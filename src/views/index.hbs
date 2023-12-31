@@ -1,0 +1,70 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Status Page</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+  {{!
+  <meta http-equiv="refresh" content="10" /> }}
+  <style>
+    .healthy {
+      background-color: green;
+      color: white;
+    }
+
+    .unhealthy {
+      background-color: rgba(255, 0, 0, 0.5);
+      color: white;
+    }
+
+    .starting {
+      background-color: gray;
+      color: white;
+    }
+
+    .unknown {
+      background-color: blue;
+      color: white;
+    }
+
+    .healthyTxt {
+      color: green;
+    }
+
+    .unhealthyTxt {
+      color: rgba(255, 0, 0, 0.5);
+    }
+
+    .startingTxt {
+      color: gray;
+    }
+
+    .unknownTxt {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body class="container">
+  <nav style="display: flex; align-items: center;">
+    <ul>
+      <li>
+        <h1>
+          MilinBhakta
+        </h1>
+      </li>
+    </ul>
+  </nav>
+  <main id="app">
+    {{{body}}}
+  </main>
+  <footer>
+    <em>Total Containers: {{{totalContainers}}}</em>
+    <p>
+      <em>UpdatedOn: {{{updatedOn}}}</em>
+    </p>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{{#each containers}}
+<details>
+  <summary style="display: flex; justify-content: flex-start; align-items: center;">
+    <div style="flex: 1;">{{{this.containerName}}}</div>
+    <kbd class="{{statusClass this.containerStatus}}">{{this.containerStatus}}</kbd>
+  </summary>
+  <div class="container">
+    <p><em>Total Services: {{{this.services.length}}}</em></p>
+    {{#each this.services}}
+    <div class="grid">
+      <p><strong>Name: {{this.name}}</strong></p>
+      <p>Status: <em class="{{statusTxtClass this.status}}">
+          {{this.status}}
+        </em></p>
+      <p>State: {{this.state}}</p>
+      <p>Created: {{this.created}}</p>
+    </div>
+    {{/each}}
+    </ul>
+</details>
+{{/each}}
