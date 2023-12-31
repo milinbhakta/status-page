@@ -5,6 +5,7 @@ import api from "./api";
 import ErrorHandler from "./middlewares/ErrorHandler";
 import NotFound from "./middlewares/NotFound";
 import docker from "./utils/docker";
+import Handlebars from "hbs";
 
 require("dotenv").config();
 
@@ -18,11 +19,46 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+Handlebars.registerHelper("statusClass", function (status) {
+  if (status === "healthy") {
+    return "healthy";
+  } else if (status.includes("Up") && status.includes("(unhealthy)")) {
+    return "unhealthy";
+  } else if (status.includes("starting")) {
+    return "starting";
+  } else {
+    return "unknown";
+  }
+});
+
 app.get("/", async (req, res) => {
-  const containers = await docker.listContainers();
+  const resContainers = await docker.listContainers();
+
   res.render("partials/containers", {
     layout: "index",
-    containers,
+    containers: resContainers.map((container) => {
+      const statusMatch = container.Status.match(/\((.*?)\)/);
+      const status = statusMatch ? statusMatch[1] : container.Status;
+      let btnName = "";
+      if (status === "healthy") {
+        btnName = "Operational";
+      } else if (status === "unhealthy") {
+        btnName = "Non-operational";
+      } else if (status === "starting") {
+        btnName = "Initializing";
+      }
+      return {
+        name: container.Names.join(", "),
+        status: status,
+        state: container.State,
+        created: new Date(container.Created * 1000)
+          .toLocaleString()
+          .replace(/\/|, /g, "-")
+          .replace(/: /, " "),
+        btnClass: status === "healthy" ? "btn-success" : "btn-danger",
+        btnName: btnName,
+      };
+    }),
   });
 });
 
