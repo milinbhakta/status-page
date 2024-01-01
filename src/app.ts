@@ -68,7 +68,7 @@ app.get("/containers", async (req, res) => {
       name: container.Labels["com.docker.compose.service"],
       status: status,
       state: container.State,
-      created: new Date(container.Created * 1000).toLocaleString(locales),
+      created: container.Created,
     };
     const projectName = container.Labels["com.docker.compose.project"];
     const sentenceCaseProjectName =
