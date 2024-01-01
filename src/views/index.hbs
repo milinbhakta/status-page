@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -42,6 +43,12 @@
     .unknownTxt {
       color: blue;
     }
+
+    .htmx-indicator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
 
 </head>
@@ -57,9 +64,10 @@
     </ul>
   </nav>
   <main id="app" hx-get="/containers" hx-trigger="load, every 5s">
-    <section id="loading" aria-busy="true" style="display: flex; justify-content: center; align-items: center;">
+    <section id="loading" aria-busy="true" class="htmx-indicator">
     </section>
   </main>
+  <script src="/js/main.js" defer></script>
 </body>
 
 </html>
