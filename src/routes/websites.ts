@@ -1,10 +1,11 @@
 import express from "express";
 import { isWebsiteOnline } from "../utils/utils";
+import website from "../interfaces/Website";
 
 const router = express.Router();
 
 router.get("/websites", async (req, res) => {
-  const websites = process.env.WEBSITES?.split(",") || [];
+  const websites: website[] = JSON.parse(process.env.WEBSITES || "[]");
   if (!websites) {
     res.status(500).send("WEBSITES environment variable not set");
   }
@@ -13,16 +14,13 @@ router.get("/websites", async (req, res) => {
     websites.map(
       (website) =>
         new Promise((resolve) => {
-          isWebsiteOnline(website, (err: any, online: boolean) => {
-            const domainName = new URL(website).hostname;
+          isWebsiteOnline(website.url, (err: any, online: boolean) => {
             if (err) {
               console.error(err);
             }
             resolve({
-              domainName: domainName.endsWith("/")
-                ? domainName.slice(0, -1)
-                : domainName,
-              name: website,
+              domainName: website.domain,
+              name: website.name,
               online: online,
               websiteStatus: online ? "healthy" : "unhealthy",
             });
