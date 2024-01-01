@@ -49,6 +49,12 @@
       justify-content: center;
       align-items: center;
     }
+
+    .gradient-text {
+      background: linear-gradient(to right, #439cfb, #f187fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   </style>
 
 </head>
@@ -57,7 +63,7 @@
   <nav style="display: flex; align-items: center;">
     <ul>
       <li>
-        <h1>
+        <h1 class="gradient-text">
           MilinBhakta
         </h1>
       </li>
@@ -66,14 +72,14 @@
   <main id="app">
     <section>
       <h3>Containers</h3>
-      <div id="containers" hx-get="/containers" hx-trigger="load, every 5s">
+      <div id="containers" hx-get="/containers" hx-trigger="load, every 300s">
         <div id="loading" aria-busy="true" class="htmx-indicator">
         </div>
       </div>
     </section>
     <section>
       <h3>Websites</h3>
-      <div id="websites" hx-get="/websites" hx-trigger="load, every 5s">
+      <div id="websites" hx-get="/websites" hx-trigger="load, every 300s">
         <div id="loading" aria-busy="true" class="htmx-indicator">
         </div>
       </div>
