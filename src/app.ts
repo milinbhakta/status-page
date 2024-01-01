@@ -57,6 +57,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/containers", async (req, res) => {
+  const userLocale = req.headers["accept-language"];
+  const locales = userLocale!.split(",").map((str) => str.split(";")[0]);
   const resContainers = await docker.listContainers();
 
   const result = resContainers.reduce((acc: Map<string, any>, container) => {
@@ -66,10 +68,7 @@ app.get("/containers", async (req, res) => {
       name: container.Labels["com.docker.compose.service"],
       status: status,
       state: container.State,
-      created: new Date(container.Created * 1000)
-        .toLocaleString()
-        .replace(/\/|, /g, "-")
-        .replace(/: /, " "),
+      created: new Date(container.Created * 1000).toLocaleString(locales),
     };
     const projectName = container.Labels["com.docker.compose.project"];
     const sentenceCaseProjectName =
@@ -101,7 +100,7 @@ app.get("/containers", async (req, res) => {
   res.render("partials/containers", {
     containers: finalResult,
     totalContainers: finalResult.length,
-    updatedOn: new Date().toLocaleString(),
+    updatedOn: new Date().toLocaleString(locales),
     layout: false,
   });
 });
