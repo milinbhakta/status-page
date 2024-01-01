@@ -100,7 +100,6 @@ app.get("/containers", async (req, res) => {
   res.render("partials/containers", {
     containers: finalResult,
     totalContainers: finalResult.length,
-    updatedOn: new Date().toLocaleString(locales),
     layout: false,
   });
 });
