@@ -31,7 +31,6 @@ router.get("/websites", async (req, res) => {
 
   res.render("partials/websites", {
     websites: websiteResult,
-    totalContainers: websiteResult.length,
     layout: false,
   });
 });

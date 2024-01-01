@@ -48,6 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    totalContainersElement.textContent = `Total Containers: ${detailsElements.length}`;
+    totalContainersElement.textContent = `Total Monitored Resources: ${detailsElements.length}`;
   });
 });

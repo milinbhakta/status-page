@@ -1,3 +1,8 @@
+{{#unless containers.length}}
+<div class="container">
+  <p>No containers are running.</p>
+</div>
+{{else}}
 {{#each containers}}
 <details>
   <summary style="display: flex; justify-content: flex-start; align-items: center;">
@@ -20,3 +25,4 @@
   </div>
 </details>
 {{/each}}
+{{/unless}}
