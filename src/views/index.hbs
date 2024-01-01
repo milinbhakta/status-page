@@ -63,10 +63,28 @@
       </li>
     </ul>
   </nav>
-  <main id="app" hx-get="/containers" hx-trigger="load, every 5s">
-    <section id="loading" aria-busy="true" class="htmx-indicator">
+  <main id="app">
+    <section>
+      <h3>Containers</h3>
+      <div id="containers" hx-get="/containers" hx-trigger="load, every 5s">
+        <div id="loading" aria-busy="true" class="htmx-indicator">
+        </div>
+      </div>
+    </section>
+    <section>
+      <h3>Websites</h3>
+      <div id="websites" hx-get="/websites" hx-trigger="load, every 5s">
+        <div id="loading" aria-busy="true" class="htmx-indicator">
+        </div>
+      </div>
     </section>
   </main>
+  <footer>
+    <em id="totalContainers"></em>
+    <p>
+      <em id="updatedOn"></em>
+    </p>
+  </footer>
   <script src="/js/main.js" defer></script>
 </body>
 

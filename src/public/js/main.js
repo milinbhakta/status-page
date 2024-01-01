@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const appElement = document.getElementById("app");
-  if (!appElement) {
-    console.error("Element with id 'app' not found");
+  const containersElement = document.getElementById("containers");
+  if (!containersElement) {
+    console.error("Element with id 'containers' not found");
     return;
   }
 
-  appElement.addEventListener("htmx:afterSwap", () => {
+  containersElement.addEventListener("htmx:afterSwap", () => {
     const createdElements = document.querySelectorAll("#created");
 
     createdElements.forEach((element) => {
@@ -21,15 +21,33 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      element.textContent = "CreatedOn: " + date.toLocaleString();
+      element.textContent = `CreatedOn: ${date.toLocaleString()}`;
     });
+  });
 
+  document.addEventListener("htmx:afterSwap", function (event) {
     const updatedOnElement = document.getElementById("updatedOn");
+    const totalContainersElement = document.getElementById("totalContainers");
+
     if (!updatedOnElement) {
       console.error("Element with id 'updatedOn' not found");
       return;
     }
 
-    updatedOnElement.textContent = "UpdatedOn: " + new Date().toLocaleString();
+    if (!totalContainersElement) {
+      console.error("Element with id 'totalContainers' not found");
+      return;
+    }
+
+    updatedOnElement.textContent = `UpdatedOn: ${new Date().toLocaleString()}`;
+
+    // get details elements
+    const detailsElements = document.querySelectorAll("details");
+    if (!detailsElements) {
+      console.error("No details elements found");
+      return;
+    }
+
+    totalContainersElement.textContent = `Total Containers: ${detailsElements.length}`;
   });
 });

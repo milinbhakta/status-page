@@ -1,0 +1,16 @@
+{{#each websites}}
+<details>
+    <summary style="display: flex; justify-content: flex-start; align-items: center;">
+        <div style="flex: 1;">{{{this.name}}}</div>
+        <kbd class="{{statusClass this.websiteStatus}}">{{this.websiteStatus}}</kbd>
+    </summary>
+    <div class="container">
+        <div class="grid">
+            <p><strong>Name: {{this.domainName}}</strong></p>
+            <p>Status: <em class="{{statusTxtClass this.websiteStatus}}">
+                    {{this.websiteStatus}}
+                </em></p>
+        </div>
+    </div>
+</details>
+{{/each}}
