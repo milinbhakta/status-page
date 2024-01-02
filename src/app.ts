@@ -22,13 +22,7 @@ app.set("view options", { layout: "index" });
 
 app.use(express.json());
 
-app.use(
-  express.static(path.join(__dirname, "public"), {
-    setHeaders: function (res, path, stat) {
-      res.set("Cache-Control", "public, max-age=31557600"); // 1 year
-    },
-  })
-);
+app.use(express.static(path.join(__dirname, 'public')));
 
 helmetMiddleware(app);
 corsMiddleware(app);
