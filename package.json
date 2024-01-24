@@ -8,7 +8,8 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc",
     "lint": "eslint --fix src",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "start:background": "nohup npm run start &"
   },
   "keywords": [],
   "author": "",
